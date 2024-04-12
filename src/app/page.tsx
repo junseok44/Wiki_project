@@ -2,7 +2,10 @@ import React from "react";
 import Container from "./components/Container";
 import Header from "./components/Header";
 import useFontAwesome from "./hooks/useFontAwesome";
-import MainContentBox from "./components/@common/MainContentBox";
+import Card from "./components/@common/Card";
+import CurrentSearch from "./components/main/CurrentSearch";
+import MainArticle from "./components/main/MainArticle";
+import RecentChanges from "./components/main/RecentChanges";
 
 const page = () => {
   return (
@@ -14,13 +17,11 @@ const page = () => {
         <Container>
           <div className="flex gap-4">
             <div className="main__article flex-1">
-              <MainContentBox>
-                <h1 className="text-white tXext-2xs">를르슈 람페르지</h1>
-              </MainContentBox>
+              <MainArticle></MainArticle>
             </div>
             <div className="main__sidebar hidden lg:flex flex-col lg:w-sidebar_width_lg xl:w-sidebar_width_xl gap-4">
-              <MainContentBox>dfdf</MainContentBox>
-              <MainContentBox>dfdf</MainContentBox>
+              <CurrentSearch />
+              <RecentChanges />
             </div>
           </div>
         </Container>
