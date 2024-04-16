@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import MainSideBar from "./components/main/MainSideBar";
+import Header from "./components/Header";
+import Container from "./components/Container";
+import Card from "./components/@common/Card";
 config.autoAddCss = false;
 
 export const metadata: Metadata = {
@@ -16,7 +20,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div className="bg-component_background_color min-h-screen">
+          <div className="lg:mb-4">
+            <Header></Header>
+          </div>
+          <div className="min-h-screen">
+            <Container>
+              <div className="flex gap-4">
+                <div className="main__article flex-1">
+                  <Card>
+                    <div className="main__article__contents p-contents_padding">
+                      {children}
+                    </div>
+                  </Card>
+                </div>
+                <MainSideBar></MainSideBar>
+              </div>
+            </Container>
+          </div>
+        </div>
+      </body>
     </html>
   );
 }

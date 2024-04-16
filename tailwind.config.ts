@@ -11,9 +11,11 @@ const config: Config = {
       display: ["group-hover"],
       fontSize: {
         "2xs": "2.25rem",
+        content_size: "15px",
       },
       borderWidth: {
         "1": "1px",
+        "0.5": "0.5px",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -25,6 +27,7 @@ const config: Config = {
         nav_logo_margin: "1rem",
         nav_item_gap: "0.5rem",
         contents_padding: "20px",
+        article_gutter_y: "1rem",
       },
       borderRadius: {
         small: "4px",
@@ -33,6 +36,7 @@ const config: Config = {
         rectangle_button_width: "2.25rem",
         sidebar_width_lg: "280px",
         sidebar_width_xl: "320px",
+        table_width: "500px",
       },
       height: {
         rectangle_button_height: "2.25rem",
@@ -53,6 +57,8 @@ const config: Config = {
         button_hover_color: "#4a4a4a",
         card_content_color: "#1c1d1f",
         card_border_color: "#444",
+        table_border_color: "#383b40",
+        font_content_color: "#ffffff",
       },
     },
   },
