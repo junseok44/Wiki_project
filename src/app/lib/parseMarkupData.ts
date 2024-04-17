@@ -1,22 +1,9 @@
-const markdown_makeheader = (text: string, index: string) => {
-  return `<div class="article__block-header"><a href="#table_of_contents" id=#a-${index}>${index}</a><h2>. ${text}</h2></div>`;
-};
-
-const markdown_makeContent = (text: string) => {
-  return `<div class="article__block-content">${text}</div>`;
-};
-
-const markdown_makelink = (text: string, link: string) => {
-  const href =
-    link.startsWith("http") || link.startsWith("https")
-      ? `${link}`
-      : `/${link}`;
-  return `<a href="${href}">${text}</a>`;
-};
-
-const markdown_makeCancelLine = (text: string) => {
-  return `<span class="font-cancle font-secondary">${text}</span>`;
-};
+import {
+  markdown_makeCancelLine,
+  markdown_makeContent,
+  markdown_makeheader,
+  markdown_makelink,
+} from "./markdown";
 
 function makeBlock(
   index: string,
@@ -40,6 +27,15 @@ function makeBlock(
     currentSubcontent = currentSubcontent.replace(
       /\-\-(.*?)\-\-/g,
       (match, p1) => markdown_makeCancelLine(p1)
+    );
+
+    currentTitle = currentTitle.replace(/\[\[\[(.*?)\s*\]\]\]/g, (match, p1) =>
+      markdown_makelink(p1, p1)
+    );
+
+    currentTitle = currentTitle.replace(
+      /\[\[\[(.*?)\s*\|\s*(.*?)\s*\]\]\]/g,
+      (match, p1, p2) => markdown_makelink(p1, p2)
     );
 
     html += `<div class="article__block">${markdown_makeheader(

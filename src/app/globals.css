@@ -1,14 +1,16 @@
+@import url("https://webfontworld.github.io/pretendard/Pretendard.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
+/* @font-face {
   font-family: "Pretendard-Regular";
   src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
     format("woff");
   font-weight: 400;
   font-style: normal;
-}
+} */
 
 :root {
   --color-font-hyperlink: #ec9f19;
@@ -19,7 +21,7 @@
 }
 
 body {
-  font-family: "Pretendard-Regular", sans-serif;
+  font-family: "Pretendard";
 }
 
 .article__block a {
@@ -36,6 +38,7 @@ body {
   display: flex;
   align-items: center;
   font-size: 1.8rem;
+  font-weight: 500;
   margin-top: 1.2rem;
   margin-bottom: 0.8rem;
   padding-bottom: 5px;
