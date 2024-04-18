@@ -10,9 +10,9 @@ import {
   faClock,
   faComments,
   faSearch,
-  faTimes,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 const Header = () => {
   return (
@@ -20,7 +20,10 @@ const Header = () => {
       <Container>
         <div className="header__contents flex justify-between h-[3.5rem] text-white py-menu_item_gutter_y">
           <div className="header__left flex items-stretch">
-            <a className="logo h-full mr-nav_logo_margin cursor-pointer">
+            <Link
+              href="/"
+              className="logo h-full mr-nav_logo_margin cursor-pointer"
+            >
               <Image
                 src="/images/main/MainLogo.png"
                 alt="logo"
@@ -28,10 +31,10 @@ const Header = () => {
                 width={120}
                 height={120}
               />
-            </a>
+            </Link>
             <ul className="flex items-stretch gap-nav_item_gap">
-              <HeaderBtn text="최근 변경" icon={faClock} />
-              <HeaderBtn text="최근 토론" icon={faComments} />
+              <HeaderBtn text="문서 작성" icon={faClock} href="/write" />
+              <HeaderBtn text="최근 문서" icon={faComments} href="/list" />
               <HeaderBtn text="특수 기능" icon={faBagShopping} />
             </ul>
           </div>

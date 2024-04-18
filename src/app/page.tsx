@@ -19,6 +19,8 @@ import InfoTable from "./components/main/InfoTable";
 import TableOfContents from "./components/main/TableOfContents";
 import ArticleBlock from "./components/main/ArticleBlock";
 import Link from "next/link";
+import ContentEditToos from "./components/main/Tools";
+import Tools from "./components/main/Tools";
 
 const page = () => {
   return (
@@ -32,28 +34,7 @@ const page = () => {
             최근 수정 시각: 2024-04-08 09:42:15
           </span>
         </div>
-        <div className="flex items-start">
-          <div className="flex">
-            <Link
-              href={`/edit`}
-              className="h-rectangle_button_height border-button_border_color border-1 border-r-0 bg-button_background_color flex px-3 py-1 text-font_secondary_color rounded-tl rounded-bl gap-2 items-center"
-            >
-              <FontAwesomeIcon icon={faPenToSquare} />
-              편집
-            </Link>
-            <a className="h-rectangle_button_height border-button_border_color border-1 border-r-0 bg-button_background_color flex px-3 py-1 text-font_secondary_color gap-2 items-center">
-              <FontAwesomeIcon icon={faComments} />
-              토론
-            </a>
-            <a className="h-rectangle_button_height border-button_border_color border-1 bg-button_background_color flex px-3 py-1 text-font_secondary_color gap-2 items-center rounded-tr rounded-br">
-              <FontAwesomeIcon icon={faBook} />
-              역사
-            </a>
-          </div>
-          <button className="w-rectangle_button_width h-rectangle_button_height bg-button_background_color border-button_border_color text-font_secondary_color rounded-md ml-2">
-            <FontAwesomeIcon icon={faPenToSquare} />
-          </button>
-        </div>
+        <Tools></Tools>
       </div>
       <div className="main__advertisement h-20 mb-article_gutter_y bg-nav_bar_hover_color"></div>
       <div>

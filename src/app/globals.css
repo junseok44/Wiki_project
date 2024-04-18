@@ -12,6 +12,14 @@
   font-style: normal;
 } */
 
+.page__title {
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  padding-bottom: 5px;
+  color: var(--color-font-content);
+}
+
 :root {
   --color-font-hyperlink: #ec9f19;
   --color-font-hyperlink-hover: #bd7f14;

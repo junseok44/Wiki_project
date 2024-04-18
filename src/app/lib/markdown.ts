@@ -3,14 +3,14 @@ export const markdown_makeheader = (text: string, index: string) => {
 };
 
 export const markdown_makeContent = (text: string) => {
-  return `<div class="article__block-content">${text}</div>`;
+  return `<div class="article__block-content" className="text-red">${text}</div>`;
 };
 
 export const markdown_makelink = (text: string, link: string) => {
   const href =
     link.startsWith("http") || link.startsWith("https")
       ? `${link}`
-      : `/${link}`;
+      : `/w/${encodeURIComponent(link)}`;
   return `<a href="${href}">${text}</a>`;
 };
 
