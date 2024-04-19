@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Card from "../@common/Card";
 import TableOfContents from "./TableOfContents";
-import { cn } from "@/app/lib/utils";
+import { cn } from "@/lib/utils";
 import ArticleBlock from "./ArticleBlock";
 import InfoTable from "./InfoTable";
 import FootNote from "./FootNote";

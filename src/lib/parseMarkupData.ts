@@ -1,9 +1,45 @@
+import { parse } from "path";
 import {
   markdown_makeCancelLine,
   markdown_makeContent,
   markdown_makeheader,
   markdown_makelink,
 } from "./markdown";
+
+function parseSubcontent(subcontent: string) {
+  let currentSubcontent = subcontent;
+
+  currentSubcontent = currentSubcontent.replace(
+    /\[\[\[(.*?)\s*\|\s*(.*?)\s*\]\]\]/g,
+    (match, p1, p2) => markdown_makelink(p1, p2)
+  );
+
+  currentSubcontent = currentSubcontent.replace(
+    /\[\[\[(.*?)\s*\]\]\]/g,
+    (match, p1) => markdown_makelink(p1, p1)
+  );
+
+  currentSubcontent = currentSubcontent.replace(/\-\-(.*?)\-\-/g, (match, p1) =>
+    markdown_makeCancelLine(p1)
+  );
+
+  return currentSubcontent;
+}
+
+function parseTitle(title: string) {
+  let currentTitle = title;
+
+  currentTitle = currentTitle.replace(
+    /\[\[\[(.*?)\s*\|\s*(.*?)\s*\]\]\]/g,
+    (match, p1, p2) => markdown_makelink(p1, p2)
+  );
+
+  currentTitle = currentTitle.replace(/\[\[\[(.*?)\s*\]\]\]/g, (match, p1) =>
+    markdown_makelink(p1, p1)
+  );
+
+  return currentTitle;
+}
 
 function makeBlock(
   index: string,
@@ -14,29 +50,9 @@ function makeBlock(
 
   if (currentSubcontent !== "") {
     // Check for links within subcontent
-    currentSubcontent = currentSubcontent.replace(
-      /\[\[\[(.*?)\s*\|\s*(.*?)\s*\]\]\]/g,
-      (match, p1, p2) => markdown_makelink(p1, p2)
-    );
+    currentSubcontent = parseSubcontent(currentSubcontent);
 
-    currentSubcontent = currentSubcontent.replace(
-      /\[\[\[(.*?)\s*\]\]\]/g,
-      (match, p1) => markdown_makelink(p1, p1)
-    );
-
-    currentSubcontent = currentSubcontent.replace(
-      /\-\-(.*?)\-\-/g,
-      (match, p1) => markdown_makeCancelLine(p1)
-    );
-
-    currentTitle = currentTitle.replace(/\[\[\[(.*?)\s*\]\]\]/g, (match, p1) =>
-      markdown_makelink(p1, p1)
-    );
-
-    currentTitle = currentTitle.replace(
-      /\[\[\[(.*?)\s*\|\s*(.*?)\s*\]\]\]/g,
-      (match, p1, p2) => markdown_makelink(p1, p2)
-    );
+    currentTitle = parseTitle(currentTitle);
 
     html += `<div class="article__block">${markdown_makeheader(
       currentTitle,
@@ -69,6 +85,20 @@ function getStringIndex(
   }
 }
 
+function saveTableOfContents(
+  table_of_contents: { index: string; contents: string; level: number }[],
+  index: string,
+  currentTitle: string
+) {
+  const currentDepth = index.split(".").length;
+
+  table_of_contents.push({
+    index: index,
+    contents: parseTitle(currentTitle),
+    level: currentDepth,
+  });
+}
+
 function parseMarkdown(markdown: string) {
   const lines = markdown.split("\n");
 
@@ -79,6 +109,8 @@ function parseMarkdown(markdown: string) {
   let index = 1;
   let indexStack: number[] = [];
   let currentDepth = 1;
+  let table_of_contents: { index: string; contents: string; level: number }[] =
+    [];
 
   for (let line of lines) {
     if (line.startsWith("=") && line.endsWith("=") && line.length >= 2) {
@@ -98,6 +130,7 @@ function parseMarkdown(markdown: string) {
       if (currentTitle !== "") {
         let indexString = getStringIndex(indexStack, currentDepth, index);
         html += makeBlock(indexString, currentTitle, currentSubcontent);
+        saveTableOfContents(table_of_contents, indexString, currentTitle);
 
         if (left - 1 > currentDepth) {
           // Increase depth
@@ -132,9 +165,13 @@ function parseMarkdown(markdown: string) {
   if (currentTitle !== "") {
     let indexString = getStringIndex(indexStack, currentDepth, index);
     html += makeBlock(indexString, currentTitle, currentSubcontent);
+    saveTableOfContents(table_of_contents, indexString, currentTitle);
   }
 
-  return html;
+  return {
+    html: html,
+    table_of_contents: table_of_contents,
+  };
 }
 
 export default parseMarkdown;

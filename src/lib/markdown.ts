@@ -1,5 +1,5 @@
 export const markdown_makeheader = (text: string, index: string) => {
-  return `<div class="article__block-header"><a href="#table_of_contents" id=#a-${index}>${index}</a><h2>. ${text}</h2></div>`;
+  return `<div class="article__block-header"><a href="#table_of_contents" id=a-${index}>${index}</a><h2>. ${text}</h2></div>`;
 };
 
 export const markdown_makeContent = (text: string) => {

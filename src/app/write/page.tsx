@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import parser from "../lib/parseMarkupData";
+import parser from "../../lib/parseMarkupData";
 import { PrismaClient } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import PageTitle from "../components/@common/PageTitle";
+import PageTitle from "../../components/@common/PageTitle";
 
 const page = () => {
   const [title, setTitle] = useState("");
@@ -49,7 +49,7 @@ const page = () => {
       if (response.ok) {
         // const data = await response.json();
 
-        router.push("/w/" + title);
+        router.push("/w/" + encodeURIComponent(title));
       } else {
         // alert("실패");
       }

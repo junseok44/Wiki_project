@@ -4,19 +4,37 @@ import CardTitle from "../@common/CardTitle";
 import { faChevronRight, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { HyperLinkText } from "../@common/Text";
+import { PrismaClient } from "@prisma/client";
+import { formatRecentTime } from "@/lib/formatDate";
 
-const ListItem = ({ time, title }: { time: string; title: string }) => {
+const ListItem = ({ time, title }: { time: Date; title: string }) => {
   return (
     <li className="flex items-center mb-1">
       <div className="flex-1">
-        <HyperLinkText href={"dfdf"}>{title}</HyperLinkText>
+        <HyperLinkText href={`/w/${encodeURIComponent(title)}`}>
+          {title}
+        </HyperLinkText>
       </div>
-      <span className="text-xs text-white">{time}</span>
+      <span className="text-xs text-white">{formatRecentTime(time)}</span>
     </li>
   );
 };
 
-const RecentChanges = () => {
+const RecentChanges = async () => {
+  const client = new PrismaClient();
+
+  const pages = await client.post.findMany({
+    select: {
+      id: true,
+      title: true,
+      updatedAt: true,
+    },
+    take: 8,
+    orderBy: {
+      updatedAt: "desc",
+    },
+  });
+
   return (
     <Card>
       <div className="p-contents_padding">
@@ -26,15 +44,9 @@ const RecentChanges = () => {
             <FontAwesomeIcon icon={faChevronRight} />
           </div>
         </CardTitle>
-        <ListItem time="방금 전" title="스핏츠" />
-        <ListItem time="방금 전" title="스핏츠" />
-        <ListItem time="방금 전" title="스핏츠" />
-        <ListItem time="방금 전" title="스핏츠" />
-        <ListItem time="방금 전" title="스핏츠" />
-        <ListItem time="방금 전" title="스핏츠" />
-        <ListItem time="방금 전" title="스핏츠" />
-        <ListItem time="방금 전" title="스핏츠" />
-        <ListItem time="방금 전" title="스핏츠" />
+        {pages.map((page) => (
+          <ListItem time={page.updatedAt} title={page.title} />
+        ))}
       </div>
     </Card>
   );

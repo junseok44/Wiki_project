@@ -1,12 +1,18 @@
 import { PrismaClient } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
-import PageTitle from "../components/@common/PageTitle";
+import PageTitle from "../../components/@common/PageTitle";
+import { HyperLinkText } from "@/components/@common/Text";
 
 const page = async () => {
   const client = new PrismaClient();
 
-  const page = await client.post.findMany();
+  const page = await client.post.findMany({
+    select: {
+      id: true,
+      title: true,
+    },
+  });
 
   return (
     <div>
@@ -16,12 +22,9 @@ const page = async () => {
       <ul>
         {page.map((post) => (
           <li key={post.id}>
-            <Link
-              href={`/w/${encodeURIComponent(post.title)}`}
-              className="text-white hover:underline"
-            >
+            <HyperLinkText href={`/w/${encodeURIComponent(post.title)}`}>
               {post.title}
-            </Link>
+            </HyperLinkText>
           </li>
         ))}
       </ul>

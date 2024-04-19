@@ -1,28 +1,23 @@
-import React from "react";
-import Container from "./components/Container";
-import Header from "./components/Header";
-import useFontAwesome from "./hooks/useFontAwesome";
-import Card from "./components/@common/Card";
-import CurrentSearch from "./components/main/CurrentSearch";
-import MainArticle from "./components/main/MainArticle";
-import RecentChanges from "./components/main/RecentChanges";
-import NamuNews from "./components/main/NamuNews";
-import FootNote from "./components/main/FootNote";
-import MainSideBar from "./components/main/MainSideBar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBook,
-  faComments,
-  faPenToSquare,
-} from "@fortawesome/free-solid-svg-icons";
-import InfoTable from "./components/main/InfoTable";
-import TableOfContents from "./components/main/TableOfContents";
-import ArticleBlock from "./components/main/ArticleBlock";
-import Link from "next/link";
-import ContentEditToos from "./components/main/Tools";
-import Tools from "./components/main/Tools";
+import ArticleBlock from "@/components/main/ArticleBlock";
+import FootNote from "@/components/main/FootNote";
+import InfoTable from "@/components/main/InfoTable";
+import TableOfContents from "@/components/main/TableOfContents";
+import Tools from "@/components/main/Tools";
 
 const page = () => {
+  const table_list = [
+    {
+      index: "1",
+      contents: "개요",
+      level: 1,
+    },
+    {
+      index: "1.1",
+      contents: "왜 그런가?",
+      level: 2,
+    },
+  ];
+
   return (
     <>
       <div className="flex main__article__contents-header mb-article_gutter_y">
@@ -43,7 +38,7 @@ const page = () => {
             <InfoTable></InfoTable>
           </div>
           <div className="ml-1/2">
-            <TableOfContents></TableOfContents>
+            <TableOfContents list={table_list}></TableOfContents>
           </div>
           <div className="clear-both"></div>
         </div>

@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React from "react";
 
-const Tools = ({ title, date }: { title: string; date: string }) => {
+const Tools = ({ title }: { title: string }) => {
   return (
     <div className="flex items-start">
       <div className="flex">

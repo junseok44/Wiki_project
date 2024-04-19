@@ -1,10 +1,10 @@
 import React, { FormEvent, useState } from "react";
-import Header from "../../components/Header";
-import parser from "../../lib/parseMarkupData";
-import PageTitle from "../../components/@common/PageTitle";
+import Header from "../../../components/Header";
+import parser from "../../../lib/parseMarkupData";
+import PageTitle from "../../../components/@common/PageTitle";
 import { PrismaClient } from "@prisma/client";
-import PostForm from "@/app/components/@common/PostForm";
-import EditForm from "@/app/components/edit/EditForm";
+import PostForm from "@/components/@common/PostForm";
+import EditForm from "@/components/edit/EditForm";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +20,10 @@ const page = async ({
   const page = await client.post.findFirst({
     where: {
       title: decodeURIComponent(titleParam),
+    },
+    select: {
+      title: true,
+      content: true,
     },
   });
 

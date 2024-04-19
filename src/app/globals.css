@@ -26,10 +26,12 @@
   --color-font-content: white;
   --size-font-content: 15px;
   --color-table-border: #383b40;
+  --color-background: #000000;
 }
 
 body {
   font-family: "Pretendard";
+  background-color: var(--color-background);
 }
 
 .article__block a {

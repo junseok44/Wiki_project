@@ -28,6 +28,10 @@ const config: Config = {
         nav_item_gap: "0.5rem",
         contents_padding: "20px",
         article_gutter_y: "1rem",
+        2: "0.5rem",
+        6: "1.5rem",
+        10: "2.5rem",
+        14: "3.5rem",
       },
       borderRadius: {
         small: "4px",
