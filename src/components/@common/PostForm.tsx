@@ -18,9 +18,24 @@ const PostForm = ({
       content: string;
     }>
   >;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
   isEditMode?: boolean;
 }) => {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      await onSubmit(e);
+    } catch (e) {
+      alert("문서 편집에 실패했습니다. 다시 시도해주세요");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setForm({
       ...form,
@@ -36,7 +51,7 @@ const PostForm = ({
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit}>
       {!isEditMode && (
         <input
           className="w-full mb-4 px-2 py-1 rounded-sm"
@@ -55,6 +70,7 @@ const PostForm = ({
       <button type="submit" className="text-black w-20 bg-white">
         submit
       </button>
+      {loading && <span className="ml-1 text-white">loading...</span>}
     </form>
   );
 };

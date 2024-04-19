@@ -12,6 +12,10 @@ const page = async () => {
       id: true,
       title: true,
     },
+    orderBy: {
+      updatedAt: "desc",
+    },
+    take: 10,
   });
 
   return (
